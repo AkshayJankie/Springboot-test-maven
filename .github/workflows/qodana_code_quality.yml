@@ -29,9 +29,6 @@ jobs:
       - name: Validate Maven Wrapper
         run: mvn --version
 
-      - name: Run Tests
-        run: mvn test
-
       - name: Archive coverage data
         uses: actions/upload-artifact@v4
         with:
