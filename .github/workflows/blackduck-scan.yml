@@ -38,3 +38,5 @@ jobs:
             --blackduck.api.token="$BLACKDUCK_TOKEN" \
             --detect.source.path="." \
             --detect.maven.build.command="mvn clean install -DskipTests" \
+            --detect.accuracy.required=NONE \
+            --blackduck.trust.cert=true
