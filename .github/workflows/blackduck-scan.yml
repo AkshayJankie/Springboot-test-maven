@@ -8,6 +8,7 @@ on:
 jobs:
   blackduck-scan:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -19,11 +20,12 @@ jobs:
           java-version: '21'
 
       - name: Build Maven package
-        run: mvn clean install -DskipTests
+        run: mvn -B -V clean install -DskipTests
 
       - name: Download Synopsys Detect script
         run: |
-          curl -sfL https://detect.synopsys.com/detect.jar -o detect.jar
+          curl -sSL https://detect.synopsys.com/detect.sh -o detect.sh
+          chmod +x detect.sh
 
       - name: Run Black Duck Detect
         env:
