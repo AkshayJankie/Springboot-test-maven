@@ -24,7 +24,8 @@ jobs:
 
       - name: Download Synopsys Detect script
         run: |
-          curl -sSL https://detect.synopsys.com/detect.sh -o detect.sh
+          curl -sSL -A "Mozilla/5.0" https://detect.blackduck.com/detect10.sh -o detect.sh
+          head -n 5 detect.sh
           chmod +x detect.sh
 
       - name: Run Black Duck Detect
