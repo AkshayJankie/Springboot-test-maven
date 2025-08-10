@@ -36,6 +36,8 @@ jobs:
           ./detect.sh \
             --blackduck.url="$BLACKDUCK_URL" \
             --blackduck.api.token="$BLACKDUCK_TOKEN" \
+            --detect.project.name="Spring" 
+            --detect.project.version.name="1.0"
             --detect.source.path="." \
             --detect.maven.build.command="clean install -DskipTests" \
             --detect.accuracy.required=NONE \
