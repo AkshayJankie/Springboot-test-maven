@@ -23,7 +23,7 @@ jobs:
 
       - name: Download Synopsys Detect script
         run: |
-          curl -sfL https://detect.synopsys.com/detect.sh -o detect.sh
+          curl -s https://detect.synopsys.com/detect.sh -o detect.sh
           chmod +x detect.sh
 
       - name: Run Black Duck Detect
