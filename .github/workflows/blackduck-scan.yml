@@ -1,0 +1,39 @@
+name: Black Duck SCA Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  blackduck-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Build Maven package
+        run: mvn clean install -DskipTests
+
+      - name: Download Synopsys Detect script
+        run: |
+          curl -s https://detect.synopsys.com/detect.sh -o detect.sh
+          chmod +x detect.sh
+
+      - name: Run Black Duck Detect
+        env:
+          BLACKDUCK_URL: ${{ secrets.BLACKDUCK_URL }}
+          BLACKDUCK_TOKEN: ${{ secrets.BLACKDUCK_TOKEN }}
+        run: |
+          ./detect.sh \
+            --blackduck.url="$BLACKDUCK_URL" \
+            --blackduck.api.token="$BLACKDUCK_TOKEN" \
+            --detect.source.path="." \
+            --detect.maven.build.command="mvn clean install -DskipTests" \
+            --detect.accuracy.required=HIGH
