@@ -32,9 +32,9 @@ jobs:
           BLACKDUCK_URL: ${{ secrets.BLACKDUCK_URL }}
           BLACKDUCK_TOKEN: ${{ secrets.BLACKDUCK_TOKEN }}
         run: |
-          ./bridge-cli/bridge-cli \
-            --blackduck.url "$BLACKDUCK_URL" \
-            --blackduck.api.token "$BLACKDUCK_TOKEN" \
-            --detect.source.path . \
-            --detect.maven.build.command "mvn clean install -DskipTests" \
-            --blackduck.trust.cert true
+          ./bridge-cli \
+            --blackduck.url="$BLACKDUCK_URL" \
+            --blackduck.api.token="$BLACKDUCK_TOKEN" \
+            --detect.source.path="." \
+            --detect.maven.build.command="mvn clean install -DskipTests" \
+            --blackduck.trust.cert=true
