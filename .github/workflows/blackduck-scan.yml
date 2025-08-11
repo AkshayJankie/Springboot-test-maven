@@ -24,15 +24,16 @@ jobs:
 
       - name: Download Black Duck Bridge CLI
         run: |
-          curl -sSL -A "Mozilla/5.0" https://repo.blackduck.com/bds-integrations-release/com/blackduck/integration/bridge/binaries/bridge-cli-thin-client/latest/bridge-cli-linux64 -o bridge-cli
-          chmod +x bridge-cli
+          curl -sSL -A "Mozilla/5.0" https://repo.blackduck.com/bds-integrations-release/com/blackduck/integration/bridge/binaries/bridge-cli-thin-client/latest/bridge-cli-linux64 -o bridge-cli-linux64
+          file bridge-cli-linux64
+          chmod +x bridge-cli-linux64
 
       - name: Run Black Duck Bridge CLI
         env:
           BLACKDUCK_URL: ${{ secrets.BLACKDUCK_URL }}
           BLACKDUCK_TOKEN: ${{ secrets.BLACKDUCK_TOKEN }}
         run: |
-          ./bridge-cli \
+          ./bridge-cli-linux64 \
             --blackduck.url="$BLACKDUCK_URL" \
             --blackduck.api.token="$BLACKDUCK_TOKEN" \
             --detect.source.path="." \
