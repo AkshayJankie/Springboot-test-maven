@@ -24,9 +24,8 @@ jobs:
 
       - name: Download Black Duck Bridge CLI
         run: |
-          curl -sSL -A "Mozilla/5.0" https://sig-repo.synopsys.com/bds-integrations-release/blackduck-bridge-cli/latest/blackduck-bridge-cli-linux64.zip -o bridge-cli.zip
-          unzip bridge-cli.zip -d bridge-cli
-          chmod +x bridge-cli/bridge-cli
+          curl -sSL -A "Mozilla/5.0" https://repo.blackduck.com/bds-integrations-release/com/blackduck/integration/bridge/binaries/bridge-cli-thin-client/latest/bridge-cli-linux64 -o bridge-cli
+          chmod +x bridge-cli
 
       - name: Run Black Duck Bridge CLI
         env:
