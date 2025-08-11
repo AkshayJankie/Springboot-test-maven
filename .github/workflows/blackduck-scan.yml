@@ -22,23 +22,20 @@ jobs:
       - name: Build Maven package
         run: mvn -B -V clean install -DskipTests
 
-      - name: Download Synopsys Detect script
+      - name: Download Black Duck Bridge CLI
         run: |
-          curl -sSL -A "Mozilla/5.0" https://detect.blackduck.com/detect10.sh -o detect.sh
-          head -n 5 detect.sh
-          chmod +x detect.sh
+          curl -sSL -A "Mozilla/5.0" https://sig-repo.synopsys.com/bds-integrations-release/blackduck-bridge-cli/latest/blackduck-bridge-cli-linux64.zip -o bridge-cli.zip
+          unzip bridge-cli.zip -d bridge-cli
+          chmod +x bridge-cli/bridge-cli
 
-      - name: Run Black Duck Detect
+      - name: Run Black Duck Bridge CLI
         env:
           BLACKDUCK_URL: ${{ secrets.BLACKDUCK_URL }}
           BLACKDUCK_TOKEN: ${{ secrets.BLACKDUCK_TOKEN }}
         run: |
-          ./detect.sh \
-            --blackduck.url="$BLACKDUCK_URL" \
-            --blackduck.api.token="$BLACKDUCK_TOKEN" \
-            --detect.project.name="Spring" 
-            --detect.project.version.name="1.0"
-            --detect.source.path="." \
-            --detect.maven.build.command="clean install -DskipTests" \
-            --detect.accuracy.required=NONE \
-            --blackduck.trust.cert=true
+          ./bridge-cli/bridge-cli \
+            --blackduck.url "$BLACKDUCK_URL" \
+            --blackduck.api.token "$BLACKDUCK_TOKEN" \
+            --detect.source.path . \
+            --detect.maven.build.command "mvn clean install -DskipTests" \
+            --blackduck.trust.cert true
