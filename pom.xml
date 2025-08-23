@@ -42,7 +42,7 @@
         <dependency>
             <groupId>de.athalis.coreasm</groupId>
             <artifactId>coreasm-config</artifactId>
-            <version>1.7.3-locke-6</version>
+            <version>1.7.3-locke-7</version>
         </dependency>
 
         <dependency>
